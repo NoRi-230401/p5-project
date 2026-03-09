@@ -1,7 +1,7 @@
-const w = 500;
-const h = 500;
-const frate = 5;
-const nGear = 19;
+const w = 600;
+const h = 800;
+const frate = 60;
+const nGear = 30;
 const bGear = 1.12;
 let rGear;
 let rSpace;
@@ -17,12 +17,13 @@ function setup() {
 
 function draw() {
   background(0);
+  let radRotate = (TWO_PI / 30) * (frameCount / frate );
 
   // Red
   push();
   stroke(color(200, 0, 0));
   translate(w / 2, h / 2);
-  rotate(frameCount / frate);
+  rotate(radRotate);
   drawGear(nGear, rGear);
   pop();
 
@@ -30,24 +31,23 @@ function draw() {
   push();
   stroke(color(0, 200, 0));
   translate(w / 2 - rSpace, h / 2);
-  rotate(-frameCount / frate + radGear / 2);
+  rotate(-radRotate);
   drawGear(nGear, rGear);
   pop();
 
   //Blue
   push();
   stroke(color(0, 0, 200));
-  translate(w / 2, h / 2 - rSpace);
-  rotate(-frameCount / frate);
-  drawGear(nGear, rGear);
+  translate(w / 2, h / 2 - rGear*(2+bGear));
+  rotate(-radRotate/2 - radGear/4);
+  drawGear2(2*nGear, 2*rGear);
   pop();
 
   //Sky Blue
   push();
   stroke(color(0, 255, 255));
-  // translate(rGear * 6 * 0.92, rGear * 6 * 0.92);
   translate(w / 2 + rSpace / Math.sqrt(2), h / 2 + rSpace / Math.sqrt(2));
-  rotate(-frameCount / frate + 10);
+  rotate(-radRotate + PI/2);
   drawGear(nGear, rGear);
   pop();
 }
@@ -62,5 +62,33 @@ function drawGear(n, r) {
     }
     line(y1 * cos(i), y1 * sin(i), 0, 0);
   }
+
+  fill("white");
   ellipse(0, 0, 10);
+  fill("yellow");
+  ellipse(0, r*4/5, 10);
 }
+
+function drawGear2(n, r) {
+  for (i = 0; i < TWO_PI; i += 0.01) {
+    var y1 = 0;
+    if (sin(i * n) >= 0) {
+      y1 = r;
+    } else {
+      // y1 = r * bGear;
+      y1 = r + rGear*(bGear-1);
+    }
+    line(y1 * cos(i), y1 * sin(i), 0, 0);
+  }
+
+  fill("white");
+  ellipse(0, 0, 10);
+  fill("yellow");
+  // ellipse(0, r*4/5, 10);
+  // ellipse(0, -r*4/5, 10);
+  ellipse(-r*4/5,0, 10);
+  ellipse(r*4/5,0, 10);
+  
+}
+
+
