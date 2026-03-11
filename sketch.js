@@ -19,9 +19,9 @@ function setup() {
   // noLoop();
 }
 
-function mousePressed(){
-  redraw();
-}
+// function mousePressed(){
+//   redraw();
+// }
 
 function draw() {
   background(0);
