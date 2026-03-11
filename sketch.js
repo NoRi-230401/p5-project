@@ -1,8 +1,9 @@
-const w = 600;
-const h = 800;
-const frate = 60;
+const w = 500;
+const h = 700;
+const frate = 5;
 const nGear = 30;
 const bGear = 1.12;
+const gSpeed = 15; // sec/1回転
 let rGear;
 let rSpace;
 let radGear;
@@ -13,33 +14,39 @@ function setup() {
   rSpace = rGear + rGear * bGear;
   radGear = TWO_PI / nGear;
   frameRate(frate);
+  // noLoop();
+}
+
+function mousePressed(){
+  redraw();
 }
 
 function draw() {
   background(0);
-  let radRotate = (TWO_PI / 30) * (frameCount / frate );
+  let radRotate = (TWO_PI / gSpeed) * (frameCount / frate );
 
   // Red
   push();
-  stroke(color(200, 0, 0));
   translate(w / 2, h / 2);
   rotate(radRotate);
+  stroke("red");
   drawGear(nGear, rGear);
   pop();
 
-  // Green
+  // Blue
   push();
-  stroke(color(0, 200, 0));
   translate(w / 2 - rSpace, h / 2);
   rotate(-radRotate);
+  stroke("Blue");
   drawGear(nGear, rGear);
   pop();
 
-  //Blue
+  //Green
   push();
-  stroke(color(0, 0, 200));
+  // stroke(color(0, 0, 200));
   translate(w / 2, h / 2 - rGear*(2+bGear));
   rotate(-radRotate/2 - radGear/4);
+  stroke("Green");
   drawGear2(2*nGear, 2*rGear);
   pop();
 
@@ -54,7 +61,7 @@ function draw() {
 
 function drawGear(n, r) {
   for (i = 0; i < TWO_PI; i += 0.01) {
-    var y1 = 0;
+    let y1 = 0;
     if (sin(i * n) >= 0) {
       y1 = r;
     } else {
@@ -70,8 +77,8 @@ function drawGear(n, r) {
 }
 
 function drawGear2(n, r) {
-  for (i = 0; i < TWO_PI; i += 0.01) {
-    var y1 = 0;
+  for (i = 0; i < TWO_PI; i += 0.001) {
+    let y1 = 0;
     if (sin(i * n) >= 0) {
       y1 = r;
     } else {

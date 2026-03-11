@@ -2,12 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Firefox",
-      "type": "firefox",
+      "name": "Launch Chrome",
+      "type": "chrome",
       "request": "launch",
       "url": "http://127.0.0.1:5500/index.html",
-      "webRoot": "${workspaceFolder}",
-      "reloadOnAttach": true
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }
